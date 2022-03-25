@@ -1,6 +1,11 @@
 name: Actions Workflow
 
-on: [push]
+on:
+  # push:
+  # pull_request:
+    # types: [closed, assigned, opened, reopened]
+  schedule:
+    - cron: "*/2 * * * *"
 
 jobs:
   run-github-actions:
@@ -15,12 +20,12 @@ jobs:
           echo $GITHUB_REPOSITORY
           echo $GITHUB_WORKSPACE
           echo "Token za autorizaciju ${{ github.token }}"
-      - name: Checkout our git repo into our runner
-        uses: actions/checkout@v1
-      - name: List Files after Checkout
-        run: |
-          pwd
-          ls -a
+      # - name: Checkout our git repo into our runner
+        # uses: actions/checkout@v1
+      # - name: List Files after Checkout
+      #   run: |
+      #     pwd
+      #     ls -a
       - name: Simple JS Action
         id: greet
         uses: actions/hello-world-javascript-action@v1
