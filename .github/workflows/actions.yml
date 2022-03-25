@@ -10,6 +10,11 @@ jobs:
         run: |
           pwd
           ls -a
+          echo "Environment varijable"
+          echo "Id komita koji je pokrenuo akciju: $GITHUB_SHA"
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "Token za autorizaciju ${{ github.token }}"
       - name: Checkout our git repo into our runner
         uses: actions/checkout@v1
       - name: List Files after Checkout
