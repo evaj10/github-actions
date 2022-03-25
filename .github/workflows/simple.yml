@@ -1,6 +1,6 @@
 name: Ime Workflow-a
 
-on: [push] 
+# on: [push] 
 
 jobs:
   run-shell-command: 
