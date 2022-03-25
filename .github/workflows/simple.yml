@@ -7,9 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo a string
-        run: eccho "Hello ovo je ubuntu komanda"
+        run: echo "Hello ovo je ubuntu komanda"
       - name: multiline script
         run: |
           node -v
           npm -v
           echo "Vise komandi u jednom koraku"
+      - name: python command
+        run: |
+          import platform
+          print(platform.processor())
+        shell: python
