@@ -13,13 +13,12 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm # lokacija kesa za npm u okviru linux masine (dato u dokumentaciji)
-<<<<<<< HEAD
           key: node-${{ hashFiles('**/package-lock.json')}} # kljuc pod kojim je kes sacuvan (kreira se novi za svaku promenu dependensija)
+<<<<<<< HEAD
           restore-keys: |
 =======
-          key: node-${{ hasFiles('**/package-lock.json')}} # kljuc pod kojim je kes sacuvan (kreira se novi za svaku promenu dependensija)
           restore-key: |
->>>>>>> 8752659 (feat: add node module caching)
+>>>>>>> eb6918d (fix: hashFiles, not hasFiles you blind dump mf)
             node-
       - name: Install Dependencies
         working-directory: ./workflow-app
