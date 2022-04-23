@@ -5,6 +5,7 @@ on:
     branches: [develop]
 
 jobs:
+<<<<<<< HEAD
   ci-pipe:
     runs-on: ubuntu-latest
     steps:
@@ -34,3 +35,4 @@ jobs:
     steps:
       - name: "Say hello"
         run: echo "Hello"
+
