@@ -9,16 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-<<<<<<< HEAD
       - name: Cache Dependencies
         uses: actions/cache@v3
         with:
           path: ~/.npm # lokacija kesa za npm u okviru linux masine (dato u dokumentaciji)
+<<<<<<< HEAD
           key: node-${{ hashFiles('**/package-lock.json')}} # kljuc pod kojim je kes sacuvan (kreira se novi za svaku promenu dependensija)
           restore-keys: |
-            node-
 =======
->>>>>>> 46e103d (fix: change working directory for build)
+          key: node-${{ hasFiles('**/package-lock.json')}} # kljuc pod kojim je kes sacuvan (kreira se novi za svaku promenu dependensija)
+          restore-key: |
+>>>>>>> 8752659 (feat: add node module caching)
+            node-
       - name: Install Dependencies
         working-directory: ./workflow-app
         run: npm ci
@@ -28,7 +30,6 @@ jobs:
       - name: Run Tests
         working-directory: ./workflow-app
         run: npm run test
-<<<<<<< HEAD
     
   cd-pipe:
     runs-on: ubuntu-latest
@@ -36,8 +37,3 @@ jobs:
     steps:
       - name: "Say hello"
         run: echo "Hello"
-
-=======
-        env:
-          CI: true
->>>>>>> 46e103d (fix: change working directory for build)
