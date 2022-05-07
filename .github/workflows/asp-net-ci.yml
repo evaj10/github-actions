@@ -1,4 +1,4 @@
-name: CI
+name: ASP.NET-CI
 
 on:
   pull_request:
