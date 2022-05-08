@@ -30,6 +30,12 @@ jobs:
       - name: Run Tests
         working-directory: ./CoreWebApiPipe
         run: dotnet test --no-restore --verbosity normal
+      - name: Create Package
+        working-directory: ./CoreWebApiPipe/CoreWebApiPipe
+        run: dotnet pack --configuration Release --no-build
+      - name: Publish the package to GPR
+        working-directory: ./CoreWebApiPipe/CoreWebApiPipe
+        run: dotnet nuget push ./bin/Release/*.nupkg
     
   cd-pipe:
     runs-on: ubuntu-latest
