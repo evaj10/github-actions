@@ -34,8 +34,9 @@ jobs:
         working-directory: ./CoreWebApiPipe/CoreWebApiPipe
         run: dotnet pack --configuration Release --no-build
       - name: Publish the package to GPR
-        run: dotnet nuget add source --username evaj10 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/evaj10/index.json"
-        run: dotnet nuget push CoreWebApiPipe/CoreWebApiPipe/bin/Release/*.nupkg --source "github"
+        run: |
+          dotnet nuget add source --username evaj10 --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/evaj10/index.json"
+          dotnet nuget push CoreWebApiPipe/CoreWebApiPipe/bin/Release/*.nupkg --source "github"
     
   cd-pipe:
     runs-on: ubuntu-latest
