@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
-	<!--<RepositoryUrl>https://github.com/evaj10/github-actions</RepositoryUrl>-->
   </PropertyGroup>
 
   <ItemGroup>
