@@ -40,7 +40,7 @@ jobs:
         working-directory: ./CoreWebApiPipe/CoreWebApiPipe
         run: dotnet pack --configuration Release --no-build
       - name: Publish the package to GPR
-        run: dotnet nuget push CoreWebApiPipe/CoreWebApiPipe/bin/Release/*.nupkg
+        run: dotnet nuget push CoreWebApiPipe/CoreWebApiPipe/bin/Release/*.nupkg --api-key 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 --source "github"
     
   cd-pipe:
     runs-on: ubuntu-latest
