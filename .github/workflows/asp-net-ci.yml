@@ -30,7 +30,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Install Dependencies
-        working-directory: ${ PROJ_DIR }
+        working-directory: ${{ PROJ_DIR }}
         run: dotnet restore
       - name: Build App
         working-directory: ${ PROJ_DIR }
