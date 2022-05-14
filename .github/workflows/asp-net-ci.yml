@@ -7,9 +7,10 @@ on:
     branches: [develop, main]
 
 env:
-  PROJ_DIR: ./CoreWebApiPipe
-  PACKAGE_DIR: ${{ format('.{0}/{0}', 'CoreWebApiPipe') }}
-  PACKAGE_PATH: ${{ format('{0}/{0}/bin/Release/*.nupkg', 'CoreWebApiPipe') }}
+  PROJ_NAME: CoreWebApiPipe
+  PROJ_DIR: ${{ format('./{0}', env.PROJ_NAME) }}
+  PACKAGE_DIR: ${{ format('.{0}/{0}', env.PROJ_NAME) }}
+  PACKAGE_PATH: ${{ format('{0}/{0}/bin/Release/*.nupkg', env.PROJ_NAME) }}
 
 jobs:
   ci-pipe:
@@ -30,13 +31,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Install Dependencies
-        working-directory: ${{ PROJ_DIR }}
+        working-directory: ${{ env.PROJ_DIR }}
         run: dotnet restore
       - name: Build App
-        working-directory: ${ PROJ_DIR }
+        working-directory: ${{ env.PROJ_DIR }}
         run: dotnet build --configuration Release --no-restore # bilduje aplikaciju za po Release konfiguraciji i bez pozivanja dotnet restore pre bilda
       - name: Run Tests
-        working-directory: ${ PROJ_DIR }
+        working-directory: ${{ env.PROJ_DIR }}
         run: dotnet test --no-restore --verbosity normal
 
       - name: Determine next version
@@ -53,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Package
         if: github.event_name == 'push'
-        working-directory: ${ PACKAGE_DIR }
+        working-directory: ${{ env.PACKAGE_DIR }}
         run: dotnet pack --configuration Release --no-build /p:Version=${{ steps.version.outputs.VERSION }}
       - name: Publish the package to GPR
         if: github.event_name == 'push'
