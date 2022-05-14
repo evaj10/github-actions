@@ -1,5 +1,5 @@
 module.exports = {
-	branches: ["main", "develop"],
+	branches: "develop",
 	repositoryUrl: "https://github.com/evaj10/github-actions",
 	plugins: [
 		"@semantic-release/commit-analyzer", // analizira komit poruke i odredjuje narednu verziju

@@ -40,7 +40,7 @@ jobs:
         if: github.event_name == 'push'
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: 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
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Package
         if: github.event_name == 'push'
         working-directory: ./CoreWebApiPipe/CoreWebApiPipe
