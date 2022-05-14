@@ -9,7 +9,7 @@ on:
 env:
   PROJ_NAME: CoreWebApiPipe
   PROJ_DIR: ./CoreWebApiPipe
-  PACKAGE_PATH: ${{ format('{0}/{1}/bin/Release/*.nupkg', ${{ PROJ_NAME }}, ${{ PROJ_NAME }}) }}
+  PACKAGE_PATH: ${{ format('{0}/{1}/bin/Release/*.nupkg', 'CoreWebApiPipe', 'CoreWebApiPipe') }}
 
 jobs:
   ci-pipe:
