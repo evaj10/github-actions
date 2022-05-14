@@ -7,10 +7,9 @@ on:
     branches: [develop, main]
 
 env:
-  PROJ_NAME: CoreWebApiPipe
-  PROJ_DIR: ${{ format('./{0}', env.PROJ_NAME) }}
-  PACKAGE_DIR: ${{ format('.{0}/{0}', env.PROJ_NAME) }}
-  PACKAGE_PATH: ${{ format('{0}/{0}/bin/Release/*.nupkg', env.PROJ_NAME) }}
+  PROJ_DIR: ./CoreWebApiPipe
+  PACKAGE_DIR: ${{ format('.{0}/{0}', CoreWebApiPipe) }}
+  PACKAGE_PATH: ${{ format('{0}/{0}/bin/Release/*.nupkg', CoreWebApiPipe) }}
 
 jobs:
   ci-pipe:
