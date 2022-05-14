@@ -7,9 +7,9 @@ on:
     branches: [develop, main]
 
 env:
-  PROJ_NAME: CoreWebApiPipe
   PROJ_DIR: ./CoreWebApiPipe
-  PACKAGE_PATH: ${{ format('{0}/{1}/bin/Release/*.nupkg', 'CoreWebApiPipe', 'CoreWebApiPipe') }}
+  PACKAGE_DIR: ${{ format('.{0}/{0}', 'CoreWebApiPipe') }}
+  PACKAGE_PATH: ${{ format('{0}/{0}/bin/Release/*.nupkg', 'CoreWebApiPipe') }}
 
 jobs:
   ci-pipe:
@@ -53,7 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Package
         if: github.event_name == 'push'
-        working-directory: ${{ PROJ_DIR + '/' + PROJ_NAME }}
+        working-directory: ${ PACKAGE_DIR }
         run: dotnet pack --configuration Release --no-build /p:Version=${{ steps.version.outputs.VERSION }}
       - name: Publish the package to GPR
         if: github.event_name == 'push'
