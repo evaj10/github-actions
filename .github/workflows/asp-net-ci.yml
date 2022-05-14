@@ -9,7 +9,7 @@ on:
 env:
   PROJ_NAME: CoreWebApiPipe
   PROJ_DIR: ./CoreWebApiPipe
-  PACKAGE_PATH: ${{ PROJ_NAME + '/' + PROJ_NAME + '/bin/Release/*.nupkg' }}
+  PACKAGE_PATH: ${{ ${ PROJ_NAME } + '/' + ${ PROJ_NAME } + '/bin/Release/*.nupkg' }}
 
 jobs:
   ci-pipe:
@@ -30,13 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Install Dependencies
-        working-directory: ${{ PROJ_DIR }}
+        working-directory: ${ PROJ_DIR }
         run: dotnet restore
       - name: Build App
-        working-directory: ${{ PROJ_DIR }}
+        working-directory: ${ PROJ_DIR }
         run: dotnet build --configuration Release --no-restore # bilduje aplikaciju za po Release konfiguraciji i bez pozivanja dotnet restore pre bilda
       - name: Run Tests
-        working-directory: ${{ PROJ_DIR }}
+        working-directory: ${ PROJ_DIR }
         run: dotnet test --no-restore --verbosity normal
 
       - name: Determine next version
