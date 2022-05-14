@@ -36,9 +36,13 @@ jobs:
 
       - name: Create a Release
         if: github.event_name == 'push'
-        run: npx semantic-release
+        run: |
+          npx semantic-release
+          echo ${{nextRelease.version}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: pokusaj
+        run: echo ${{nextRelease.version}}
       - name: Create Package
         if: github.event_name == 'push'
         working-directory: ./CoreWebApiPipe/CoreWebApiPipe
