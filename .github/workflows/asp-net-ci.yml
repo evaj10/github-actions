@@ -34,17 +34,22 @@ jobs:
         working-directory: ./CoreWebApiPipe
         run: dotnet test --no-restore --verbosity normal
 
+      - name: Determine next version
+        id: version
+        if: github.event_name == 'push'
+        run: ::set-output name=VERSION::$(npx semantic-release --dry-run | grep -oP 'Published release \K.*? ')
+      - name: proba
+        run: echo ${{ steps.version.outputs.VERSION }}
+        
       - name: Create a Release
         if: github.event_name == 'push'
-        run: |
-          npx semantic-release
-          echo ${{nextRelease.version}}
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Package
         if: github.event_name == 'push'
         working-directory: ./CoreWebApiPipe/CoreWebApiPipe
-        run: dotnet pack --configuration Release --no-build
+        run: dotnet pack --configuration Release --no-build /p:Version=${{ steps.version.outputs.VERSION }}
       - name: Publish the package to GPR
         if: github.event_name == 'push'
         run: |
