@@ -6,14 +6,10 @@ on:
   push:
     branches: [develop]
 
-permissions: write-all
-
 jobs:
   ci-pipe:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
+    permissions: write-all
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
