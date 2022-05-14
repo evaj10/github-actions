@@ -2,9 +2,14 @@ name: ASP.NET-CI
 
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, main]
   push:
-    branches: [develop]
+    branches: [develop, main]
+
+env:
+  PROJ_NAME: CoreWebApiPipe
+  PROJ_DIR: ./CoreWebApiPipe
+  PACKAGE_PATH: ${{ PROJ_NAME + '/' + PROJ_NAME + '/bin/Release/*.nupkg' }}
 
 jobs:
   ci-pipe:
@@ -25,13 +30,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Install Dependencies
-        working-directory: ./CoreWebApiPipe
+        working-directory: ${{ PROJ_DIR }}
         run: dotnet restore
       - name: Build App
-        working-directory: ./CoreWebApiPipe
+        working-directory: ${{ PROJ_DIR }}
         run: dotnet build --configuration Release --no-restore # bilduje aplikaciju za po Release konfiguraciji i bez pozivanja dotnet restore pre bilda
       - name: Run Tests
-        working-directory: ./CoreWebApiPipe
+        working-directory: ${{ PROJ_DIR }}
         run: dotnet test --no-restore --verbosity normal
 
       - name: Determine next version
@@ -41,9 +46,6 @@ jobs:
           echo "::set-output name=VERSION::$(npx semantic-release --dry-run | grep -oP 'Published release \K.*? ')"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: proba
-        run: echo ${{ steps.version.outputs.VERSION }}
-        
       - name: Create a Release
         if: github.event_name == 'push'
         run: npx semantic-release
@@ -51,17 +53,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Package
         if: github.event_name == 'push'
-        working-directory: ./CoreWebApiPipe/CoreWebApiPipe
+        working-directory: ${{ PROJ_DIR + '/' + PROJ_NAME }}
         run: dotnet pack --configuration Release --no-build /p:Version=${{ steps.version.outputs.VERSION }}
       - name: Publish the package to GPR
         if: github.event_name == 'push'
         run: |
-          dotnet nuget add source --username random --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/evaj10/index.json"
-          dotnet nuget push CoreWebApiPipe/CoreWebApiPipe/bin/Release/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
-
-  cd-pipe:
-    runs-on: ubuntu-latest
-    needs: ["ci-pipe"]
-    steps:
-      - name: "Say hello"
-        run: echo "Hello"
+          dotnet nuget add source --username ekipa --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/evaj10/index.json"
+          dotnet nuget push PACKAGE_PATH --api-key ${{ secrets.GITHUB_TOKEN }} --source "github"
