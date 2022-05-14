@@ -38,7 +38,7 @@ jobs:
         id: version
         if: github.event_name == 'push'
         run: |
-          echo "::set-output name=TAG_NAME::$(npx semantic-release --dry-run | grep -oP 'Published release \K.*? ')"
+          echo "::set-output name=VERSION::$(npx semantic-release --dry-run | grep -oP 'Published release \K.*? ')"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: proba
