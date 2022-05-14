@@ -6,6 +6,8 @@ on:
   push:
     branches: [develop]
 
+permissions: read-all|write-all
+
 jobs:
   ci-pipe:
     runs-on: ubuntu-latest
