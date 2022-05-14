@@ -8,7 +8,7 @@ on:
 
 env:
   PROJ_DIR: ./CoreWebApiPipe
-  PACKAGE_DIR: ${{ format('.{0}/{0}', PROJ_DIR) }}
+  PACKAGE_DIR: ${{ format('.{0}/{0}', 'CoreWebApiPipe') }}
   PACKAGE_PATH: ${{ format('{0}/{0}/bin/Release/*.nupkg', 'CoreWebApiPipe') }}
 
 jobs:
